@@ -1,6 +1,7 @@
 <?php namespace Fadion\Bouncy;
 
 use Illuminate\Support\Facades\Config;
+use Elasticsearch\ClientBuilder as ClientBuilder;
 use Elasticsearch\Client as ElasticSearch;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Elasticsearch\Common\Exceptions\Conflict409Exception;
@@ -591,7 +592,8 @@ trait BouncyTrait {
      */
     protected function getElasticClient()
     {
-        return new ElasticSearch(Config::get('elasticsearch'));
+                return \Elasticsearch\ClientBuilder::create()->setHosts(config('elasticsearch.hosts'))->build();
+
     }
 
 }
